@@ -1,6 +1,6 @@
 import React from 'react';
 import User from './User';
-import dataUsers from '../data/dataUsers';
+// import dataUsers from '../data/dataUsers';
 
 import classes from './users.module.css';
 
@@ -15,14 +15,15 @@ import {
 
 const Users = (props) => {
 
-    console.log(dataUsers);
+    // console.log(dataUsers);
+    console.log(props.userData)
 
 
     return (
     
         <Container className = {classes.Container}>
 
-        {dataUsers.map((user, key) => {
+        {props.userData.map((user, key) => {
             return (
                 <User 
                     key = {user.id}

@@ -17,7 +17,7 @@ import {Alert,
 
 const user = (props) => {
 
-    console.log('User props', props);
+    //  console.log('User props', props);
 
     return (
         <React.Fragment>
