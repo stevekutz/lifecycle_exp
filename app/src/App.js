@@ -23,8 +23,7 @@ class App extends React.Component {
             .catch( err => {
                 console.log('ERROR: ', err);
             })
-    
-    
+        
     }
 
 

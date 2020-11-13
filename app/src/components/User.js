@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import classes from './user.module.css';
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
 import {Alert,   
+    Button,
     Card,
     CardHeader,
     CardTitle,
@@ -15,38 +16,90 @@ import {Alert,
     } from 'shards-react';
 
 
-const user = (props) => {
+class User extends React.Component {
 
-    //  console.log('User props', props);
 
-    return (
-        <React.Fragment>
-        <div className = {classes.UserContainer}>
-            <Card >
-                <CardHeader> {props.user.id}</CardHeader>
-                <CardTitle> {props.user.name}</CardTitle>
-                <CardBody>
-                    <p> username: {props.user.username} </p>
-                    <p> email: {props.user.email} </p>
+    state = {
+        showAddress: false,
+    }
+
+    // toggleAddress = () => {
+    //     this.setState(prevState => {
+    //         return {showAddress: !prevState}
+    //     })
+    // }
+
+    toggleAddress = () => {
+        this.setState({ showAddress: !this.state.showAddress})
+    
+    }
+
+
+
+    render() {
+    
+    let {id, name, username, email} = this.props.user;
+    let {street, suite, city, zipcode} = this.props.user.address;    
+
+        return (
+            <React.Fragment>
+            <div className = {classes.UserContainer}>
+                <Card >
+                    <CardHeader> {id}</CardHeader>
+                    <CardTitle> {name}</CardTitle>
+                    <CardBody>
+                        <p> username: {username} </p>
+                        <p> email: {email} </p>
+                        {this.state.showAddress ? (
+                        <div>
+                           <div className = {classes.AddressLine}>
+                                <p> {street} </p>
+                                <p> {suite}</p>                            
+                            </div>
+                            <div clasName = {classes.AddressLine}>
+                                <p> {city} </p>
+                                <p> {zipcode} </p>
+                            </div>
+
+                            <div className = {classes.AddressLine,  classes.Last}>
+                           
+                           </div> 
+
+                        </div>
+                        )
+                        :
+                        null }    
                     
+                    
+                    </CardBody>
+                    <Button
+                        // style = {{theme: this.state.showAddress ? 'info' : 'success'}}
+                        theme = {this.state.showAddress ? 'info' : 'success'}    
+                        onClick = {this.toggleAddress}
+                    >
+                    {this.state.showAddress ? 'Hide Address' : 'Show Address'}
+                    </Button>
                 
-                
-                </CardBody>
+                </Card>
             
-            </Card>
-        
-        
-        
-        
-        
-        </div>
+            
+            
+            
+            
+            </div>
 
-        
-        
-        </React.Fragment>
-    )
+            
+            
+            </React.Fragment>
+        )
+    
+    
+    
+    
+    }
+
 
 
 }
 
-export default user;
+export default User;

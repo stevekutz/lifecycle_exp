@@ -8,3 +8,17 @@
 
 
 }
+
+.AddressLine {
+    /* border: 1px solid red; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1px;
+}
+
+.Last {
+    /* border: 1px solid blue; */
+    text-align: right;
+}
