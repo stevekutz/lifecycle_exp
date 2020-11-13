@@ -12,9 +12,11 @@ import './App.css';
 class App extends React.Component {
     state = {
         userData: [],
-    
+
     }
 
+
+    // Mounts ONCE after first render, DOM is drawn >> analogue>> use Effect with 2nd arg [] analogue
     componentDidMount () {
         axios.get('https://jsonplaceholder.typicode.com/users')
             .then(res => {
@@ -37,7 +39,7 @@ class App extends React.Component {
             <Users 
                 userData = {this.state.userData}
 
-                />
+            />
         </div>
     );
   

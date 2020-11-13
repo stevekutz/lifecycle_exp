@@ -28,6 +28,7 @@ const Users = (props) => {
                 <User 
                     key = {user.id}
                     user = {user}
+                    openModal = {false}
                 />    
             )
         

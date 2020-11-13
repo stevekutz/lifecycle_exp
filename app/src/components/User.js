@@ -12,7 +12,9 @@ import {Alert,
     CardImg,
     CardBody,
     CardFooter,
-    Container
+    Container,
+    Modal,
+    ModalBody,
     } from 'shards-react';
 
 
@@ -20,24 +22,50 @@ class User extends React.Component {
 
 
     state = {
-        showAddress: false,
+        showAll: false,
+        openModal: false,
     }
 
-    // toggleAddress = () => {
+    // // cleaner ES5  approach in case React batches multiple setState() calls
+    // toggleAddressModal = () => {
     //     this.setState(prevState => {
-    //         return {showAddress: !prevState}
+    //         return {showAll: !prevState.showAll}
     //     })
     // }
 
-    toggleAddress = () => {
-        this.setState({ showAddress: !this.state.showAddress})
-    
+    // cleaner ES6  approach in case React batches multiple setState() calls
+    toggleAddressModal = () => {
+        this.setState((prevState) => (
+            { showAll: !prevState.showAll,
+               // openModal: !prevState.openModal,            
+            }))
     }
+
+
+    // Update if anything in state, props, snapshot changes
+    componentDidUpdate (prevProps, prevState) {
+
+        // MUST include prevProps
+        // MUST include a conditon to check or else returns true and endless loop results 
+        //          >> Error: Maximum update depth exceeded
+        if (prevState.showAll !== this.state.showAll) {
+            this.setState({openModal: !prevState.openModal});    
+        }
+    }
+
+    // Legacy method to handle SetState
+    // toggleAddressModal = () => {
+    //     this.setState({ showAll: !this.state.showAll,
+    //                     // openModal: !this.state.openModal,
+    //     })     
+    // }
 
 
 
     render() {
     
+
+    const {openModal} = this.state;
     let {id, name, username, email} = this.props.user;
     let {street, suite, city, zipcode} = this.props.user.address;    
 
@@ -50,13 +78,26 @@ class User extends React.Component {
                     <CardBody>
                         <p> username: {username} </p>
                         <p> email: {email} </p>
-                        {this.state.showAddress ? (
-                        <div>
+                     
+                    </CardBody>
+                    <Button
+                        theme = {this.state.showAll ? 'info' : 'success'}    
+                        onClick = {this.toggleAddressModal}
+                    >
+                    {this.state.showAll ? 'Hide Address' : 'Show Address'}
+                    </Button>
+                
+                <Modal
+                    open = {openModal}
+                    toggle = {this.toggleAddressModal}
+                >
+                    <ModalBody>
+                         <div>
                            <div className = {classes.AddressLine}>
                                 <p> {street} </p>
                                 <p> {suite}</p>                            
                             </div>
-                            <div clasName = {classes.AddressLine}>
+                            <div className = {classes.AddressLine}>
                                 <p> {city} </p>
                                 <p> {zipcode} </p>
                             </div>
@@ -66,22 +107,13 @@ class User extends React.Component {
                            </div> 
 
                         </div>
-                        )
-                        :
-                        null }    
                     
-                    
-                    </CardBody>
-                    <Button
-                        // style = {{theme: this.state.showAddress ? 'info' : 'success'}}
-                        theme = {this.state.showAddress ? 'info' : 'success'}    
-                        onClick = {this.toggleAddress}
-                    >
-                    {this.state.showAddress ? 'Hide Address' : 'Show Address'}
-                    </Button>
+                    </ModalBody>
+
+
+                </Modal>
                 
                 </Card>
-            
             
             
             
