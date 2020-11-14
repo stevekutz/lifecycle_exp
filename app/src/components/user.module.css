@@ -14,21 +14,56 @@
     border: 1px solid blue;
     flex-direction: column;
     margin: 3px;
+}
+
+
+.InfoContainer {
+    display: flex;
+    padding: 5px;
+}
+
+
+.ImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    /* width: 200px; */
+    min-height: 240px;
+    /* position: relative; */
+    /* flex-direction: column;
+    text-align: center; */
+}
+
+.Image {
+    /* padding: 15px; */
+    border-radius: 15px;
+    /* height: 100%; */
+    /* width: 100%; */
+    width: 180px;
+    height: 180px;
+ 
+
+
 
 }
 
 .ExtraInfo {
     border: 1px solid red;
     width: 50%;
-    /* display: flex; */
-    /* flex-direction: column; */
 }
 
-.Address, .Geo {
+.Address {
     text-align: left;
     font-weight: bold;
     margin: 0;
+}
 
+.Geo {
+    width: 90%;
+    text-align: left;
+    font-weight: bold;
+    margin: 0;
 }
 
 .InfoField {
@@ -48,6 +83,17 @@
     padding: 10px;
     margin: 0;
 }
+
+
+.GeoField {
+    display: flex;
+    width: 80%;
+    margin: 1px;
+    padding: 2px;
+
+
+}
+
 
 .Last {
     /* border: 1px solid blue; */

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from './user.module.css';
-
+import axios from 'axios';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "shards-ui/dist/css/shards.min.css";
@@ -24,6 +24,7 @@ class User extends React.Component {
     state = {
         showAll: false,
         openModal: false,
+        imageURL: null
     }
 
     // // cleaner ES5  approach in case React batches multiple setState() calls
@@ -39,6 +40,17 @@ class User extends React.Component {
             { showAll: !prevState.showAll,
                // openModal: !prevState.openModal,            
             }))
+    }
+
+    componentDidMount () {
+        axios.get('https://dog.ceo/api/breeds/image/random')
+            .then(res => {
+                this.setState({imageURL: res.data.message})
+            })            
+            .catch((err) => {
+                console.log("Doggos GET error ", err)
+            })    
+
     }
 
 
@@ -65,7 +77,7 @@ class User extends React.Component {
     render() {
     
 
-    const {openModal} = this.state;
+    const {openModal, imageURL} = this.state;
     let {id, name, username, email} = this.props.user;
     let {street, suite, city, zipcode} = this.props.user.address; 
     let {lat, lng} = this.props.user.address.geo;   
@@ -103,34 +115,45 @@ class User extends React.Component {
                                     <p className = {classes.InfoField}> email: {email} </p>                            
                                 </div>
                             
+                                <div className = {classes.InfoContainer}>
 
-                                <div className = {classes.ExtraInfo}>
-                                    <p className = {classes.Address}> Address</p>
-                                    <div className = {classes.AddressLine}>
-                                        <p className = {classes.InfoField}> {street} </p>
-                                        <p className = {classes.InfoField}> {suite}</p>                            
-                                    </div>
-                                    <div className = {classes.AddressLine}>
-                                        <p className = {classes.InfoField}> {city} </p>
-                                        <p className = {classes.InfoField}> {zipcode} </p>
-                                    </div>
+                                    <div className = {classes.ExtraInfo}>
+                                        <p className = {classes.Address}> Address</p>
+                                        <div className = {classes.AddressLine}>
+                                            <p className = {classes.InfoField}> {street} </p>
+                                            <p className = {classes.InfoField}> {suite}</p>                            
+                                        </div>
+                                        <div className = {classes.AddressLine}>
+                                            <p className = {classes.InfoField}> {city} </p>
+                                            <p className = {classes.InfoField}> {zipcode} </p>
+                                        </div>
 
 
-                                    <p className = {classes.Geo}> Geo Location</p>
-                                    <div className = {classes.AddressLine}>
-                                        <p className = {classes.InfoField}>Lat: {lat} </p>
-                                        <p className = {classes.InfoField}>Long: {lng}</p>                            
+                                        <p className = {classes.Geo}> Geo Location</p>
+                                        <div className = {classes.AddressLine}>
+                                            <p className = {classes.GeoField}>Lat: {lat} </p>
+                                            <p className = {classes.GeoField}>Long: {lng}</p>                            
+                                        </div>
+                                    
                                     </div>
-                                
-                                
+
+                                    <div className = {classes.ExtraInfo}>
+                                        
+                                        <div className = {classes.ImageContainer}>
+                                            <img 
+                                                className = {classes.Image} 
+                                                src = {imageURL} 
+                                                width = "100%" 
+                                                alt = "dog pic" 
+                                                sizes = "<max-width: 80px) 25vw, 25vw"
+                                            />
+                                        </div>
+
+                                    
+                                    </div> 
                                 
                                 </div>
 
-                                <div className = {classes.AddressLine,  classes.Last}>
-
-
-                                
-                                </div> 
 
                             </Card>
                         
