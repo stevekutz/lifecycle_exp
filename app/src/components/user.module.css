@@ -1,7 +1,6 @@
 .UserContainer {
     /* border: 1px solid blue; */
     display: flex;
-    /* width: 100px; */
     flex-direction: row;
     padding: 15px;
     margin: 5px;
@@ -10,8 +9,8 @@
 }
 
 .TopInfo {
+    /* border: 1px solid blue; */
     display: flex;
-    border: 1px solid blue;
     flex-direction: column;
     margin: 3px;
 }
@@ -27,29 +26,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
-    /* width: 200px; */
     min-height: 240px;
-    /* position: relative; */
-    /* flex-direction: column;
-    text-align: center; */
+
 }
 
 .Image {
-    /* padding: 15px; */
     border-radius: 15px;
-    /* height: 100%; */
-    /* width: 100%; */
     width: 180px;
     height: 180px;
- 
-
-
-
 }
 
 .ExtraInfo {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 50%;
 }
 
@@ -75,10 +63,8 @@
 }
 
 .AddressLine {
-    border: 1px solid black;
-    /* width: 50%; */
+    /* border: 1px solid black; */
     display: flex;
-    /* flex-direction: column; */
     justify-content: space-evenly;
     padding: 10px;
     margin: 0;

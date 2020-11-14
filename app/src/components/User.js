@@ -111,8 +111,8 @@ class User extends React.Component {
                             <Card>
                                 <div className = {classes.TopInfo}>
                                     <CardTitle> {name}</CardTitle>
-                                    <p className = {classes.InfoField}> username: {username} </p>
-                                    <p className = {classes.InfoField}> email: {email} </p>                            
+                                    <p > username: {username} </p>
+                                    <p > email: {email} </p>                            
                                 </div>
                             
                                 <div className = {classes.InfoContainer}>
@@ -145,7 +145,6 @@ class User extends React.Component {
                                                 src = {imageURL} 
                                                 width = "100%" 
                                                 alt = "dog pic" 
-                                                sizes = "<max-width: 80px) 25vw, 25vw"
                                             />
                                         </div>
 
