@@ -67,12 +67,13 @@ class User extends React.Component {
 
     const {openModal} = this.state;
     let {id, name, username, email} = this.props.user;
-    let {street, suite, city, zipcode} = this.props.user.address;    
+    let {street, suite, city, zipcode} = this.props.user.address; 
+    let {lat, lng} = this.props.user.address.geo;   
 
         return (
             <React.Fragment>
             <div className = {classes.UserContainer}>
-                <Card >
+                <Card small = {true}>
                     <CardHeader> {id}</CardHeader>
                     <CardTitle> {name}</CardTitle>
                     <CardBody>
@@ -84,34 +85,59 @@ class User extends React.Component {
                         theme = {this.state.showAll ? 'info' : 'success'}    
                         onClick = {this.toggleAddressModal}
                     >
-                    {this.state.showAll ? 'Hide Address' : 'Show Address'}
+                    {this.state.showAll ? 'Hide Extra Info' : 'Show All Info'}
                     </Button>
                 
-                <Modal
-                    open = {openModal}
-                    toggle = {this.toggleAddressModal}
-                >
-                    <ModalBody>
-                         <div>
-                           <div className = {classes.AddressLine}>
-                                <p> {street} </p>
-                                <p> {suite}</p>                            
-                            </div>
-                            <div className = {classes.AddressLine}>
-                                <p> {city} </p>
-                                <p> {zipcode} </p>
-                            </div>
+                    <Modal
+                        open = {openModal}
+                        toggle = {this.toggleAddressModal}
+                        size = 'small'
+                        fade = {true}
+                        animation = {true}
+                    >
+                        <ModalBody>
+                            <Card>
+                                <div className = {classes.TopInfo}>
+                                    <CardTitle> {name}</CardTitle>
+                                    <p className = {classes.InfoField}> username: {username} </p>
+                                    <p className = {classes.InfoField}> email: {email} </p>                            
+                                </div>
+                            
 
-                            <div className = {classes.AddressLine,  classes.Last}>
-                           
-                           </div> 
+                                <div className = {classes.ExtraInfo}>
+                                    <p className = {classes.Address}> Address</p>
+                                    <div className = {classes.AddressLine}>
+                                        <p className = {classes.InfoField}> {street} </p>
+                                        <p className = {classes.InfoField}> {suite}</p>                            
+                                    </div>
+                                    <div className = {classes.AddressLine}>
+                                        <p className = {classes.InfoField}> {city} </p>
+                                        <p className = {classes.InfoField}> {zipcode} </p>
+                                    </div>
 
-                        </div>
-                    
-                    </ModalBody>
+
+                                    <p className = {classes.Geo}> Geo Location</p>
+                                    <div className = {classes.AddressLine}>
+                                        <p className = {classes.InfoField}>Lat: {lat} </p>
+                                        <p className = {classes.InfoField}>Long: {lng}</p>                            
+                                    </div>
+                                
+                                
+                                
+                                </div>
+
+                                <div className = {classes.AddressLine,  classes.Last}>
 
 
-                </Modal>
+                                
+                                </div> 
+
+                            </Card>
+                        
+                        </ModalBody>
+
+
+                    </Modal>
                 
                 </Card>
             

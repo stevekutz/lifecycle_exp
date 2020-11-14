@@ -9,13 +9,44 @@
 
 }
 
-.AddressLine {
-    /* border: 1px solid red; */
-    width: 100%;
+.TopInfo {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 1px;
+    border: 1px solid blue;
+    flex-direction: column;
+    margin: 3px;
+
+}
+
+.ExtraInfo {
+    border: 1px solid red;
+    width: 50%;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+.Address, .Geo {
+    text-align: left;
+    font-weight: bold;
+    margin: 0;
+
+}
+
+.InfoField {
+    display: flex;
+    width: 80%;
+    margin: 0;
+    padding: 0;
+
+}
+
+.AddressLine {
+    border: 1px solid black;
+    /* width: 50%; */
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-evenly;
+    padding: 10px;
+    margin: 0;
 }
 
 .Last {
