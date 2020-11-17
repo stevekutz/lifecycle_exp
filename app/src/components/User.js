@@ -24,7 +24,8 @@ class User extends React.Component {
     state = {
         showAll: false,
         openModal: false,
-        imageURL: null
+        imageURL: null,
+        mounted: null,
     }
 
     // // cleaner ES5  approach in case React batches multiple setState() calls
@@ -42,6 +43,8 @@ class User extends React.Component {
             }))
     }
 
+
+    // Runs once after the first render on client side
     componentDidMount () {
         axios.get('https://dog.ceo/api/breeds/image/random')
             .then(res => {
@@ -55,14 +58,30 @@ class User extends React.Component {
 
 
     // Update if anything in state, props, snapshot changes
+    // Runs just before render, re-render
     componentDidUpdate (prevProps, prevState) {
 
         // MUST include prevProps
         // MUST include a conditon to check or else returns true and endless loop results 
         //          >> Error: Maximum update depth exceeded
         if (prevState.showAll !== this.state.showAll) {
-            this.setState({openModal: !prevState.openModal});    
+             this.setState({openModal: !prevState.openModal});    
+
+            console.log('ComponentDidUpdate FIRED !!! ')
+        // Putting API call here wil re-fetch image every time Show All Info toggled  
+        // as well as every second if modal left open  
+            // axios.get('https://dog.ceo/api/breeds/image/random')
+            //     .then(res => {
+            //         this.setState({imageURL: res.data.message})
+            //     })            
+            //     .catch((err) => {
+            //         console.log("Doggos GET error ", err)
+            //     })           
+
+
         }
+
+
     }
 
     // Legacy method to handle SetState
@@ -71,6 +90,11 @@ class User extends React.Component {
     //                     // openModal: !this.state.openModal,
     //     })     
     // }
+
+
+    componentWillUnmount () {
+        this.imageURL = null;
+    }    
 
 
 
@@ -83,7 +107,7 @@ class User extends React.Component {
     let {lat, lng} = this.props.user.address.geo;   
 
         return (
-            <React.Fragment>
+            
             <div className = {classes.UserContainer}>
                 <Card small = {true}>
                     <CardHeader> {id}</CardHeader>
@@ -107,8 +131,8 @@ class User extends React.Component {
                         fade = {true}
                         animation = {true}
                     >
-                        <ModalBody>
-                            <Card>
+                        <ModalBody style = {{ padding: '5px'}}>
+                            <Card >
                                 <div className = {classes.TopInfo}>
                                     <CardTitle> {name}</CardTitle>
                                     <p > username: {username} </p>
@@ -120,8 +144,8 @@ class User extends React.Component {
                                     <div className = {classes.ExtraInfo}>
                                         <p className = {classes.Address}> Address</p>
                                         <div className = {classes.AddressLine}>
-                                            <p className = {classes.InfoField}> {street} </p>
-                                            <p className = {classes.InfoField}> {suite}</p>                            
+                                            <p className = {classes.InfoField}> {street} {suite} </p>
+                                            {/* <p className = {classes.InfoField}> {suite}</p>    */}                            
                                         </div>
                                         <div className = {classes.AddressLine}>
                                             <p className = {classes.InfoField}> {city} </p>
@@ -140,12 +164,14 @@ class User extends React.Component {
                                     <div className = {classes.ExtraInfo}>
                                         
                                         <div className = {classes.ImageContainer}>
+                                            <div></div>
                                             <img 
                                                 className = {classes.Image} 
                                                 src = {imageURL} 
                                                 width = "100%" 
                                                 alt = "dog pic" 
                                             />
+                                            <div></div>
                                         </div>
 
                                     
@@ -170,7 +196,7 @@ class User extends React.Component {
 
             
             
-            </React.Fragment>
+            
         )
     
     
